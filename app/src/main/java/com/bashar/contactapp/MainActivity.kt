@@ -1,44 +1,53 @@
 package com.bashar.contactapp
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.EditText
-import android.widget.ImageView
-import com.bashar.contactapp.databinding.ActivityContactRecyclerviewBinding
 import com.bashar.contactapp.databinding.ActivityMainBinding
 
+
 class MainActivity : AppCompatActivity() {
-    lateinit var binding: ActivityContactRecyclerviewBinding
+
+    lateinit var binding : ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
-        binding = ActivityContactRecyclerviewBinding.inflate(layoutInflater)
-        setContentView(binding.root)
         super.onCreate(savedInstanceState)
-        initRecyclerView()
-    }
-
-    lateinit var adapter: MainActivityAdapter
-    lateinit var nameText: EditText
-    lateinit var phoneText: EditText
-
-    private fun initRecyclerView() {
-        adapter = MainActivityAdapter(createContactList())
-        binding.rvContacts.adapter = adapter
-        nameText = findViewById(R.id.nameEd)
-        phoneText = findViewById(R.id.phoneEd)
-
-    }
-
-    private var name = nameText.text.toString()
-    private var phoneString = phoneText.text.toString()
-    private var av = R.drawable.download
-
-    private fun createContactList(): List<Contact> {
-        val contactList = arrayListOf<Contact>()
-        for (i in 0..100) {
-            contactList.add(
-                Contact(name = name , phone = phoneString , avatarID = av)
-            )
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        binding.saveButton.setOnClickListener{
+            intent = Intent(this@MainActivity , InformationActivity::class.java)
+            startActivity(intent)
         }
-        return contactList
+
+        initRecyclerView()
+
+    }
+
+    private lateinit var adapter : MainActivityAdapter
+    private lateinit var contactList : MutableList<Contact>
+    private fun initRecyclerView() {
+        createContactList()
+        adapter = MainActivityAdapter(contactList)
+        adapter.onSaveButtonClickListener = object: MainActivityAdapter.OnSaveButtonClickListener{
+            override fun onClickListener(position: Int, item: Contact) {
+
+            }
+        }
+    }
+    lateinit var nameEditText : EditText
+    lateinit var phoneEditText : EditText
+    lateinit var descriptionEditText : EditText
+
+    private fun createContactList() {
+        nameEditText = findViewById(R.id.nameEd)
+        phoneEditText = findViewById(R.id.phoneEd)
+        descriptionEditText = findViewById(R.id.descriptionEd)
+        var name1 = nameEditText.toString()
+        var phone1 = phoneEditText.toString()
+        var description1 = descriptionEditText.toString()
+            contactList = arrayListOf()
+        for(i in 0..100){
+            contactList.add(Contact(name = name1 , phone = phone1 , description = description1 , avatarID = R.drawable.download))
+        }
     }
 }

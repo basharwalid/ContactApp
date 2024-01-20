@@ -58,5 +58,16 @@
         android:padding="10dp"
         android:text="Save"
         android:textSize="20sp"
-        app:layout_constraintTop_toBottomOf="@+id/descriptionEd" />
+        app:layout_constraintTop_toBottomOf="@+id/descriptionEd"
+        />
+    <androidx.recyclerview.widget.RecyclerView
+        app:layout_constraintTop_toBottomOf="@+id/saveButton"
+        android:layout_marginTop="10dp"
+        android:id="@+id/rv_contacts"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/information_card"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>
