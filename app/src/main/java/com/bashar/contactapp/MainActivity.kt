@@ -3,7 +3,6 @@ package com.bashar.contactapp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.AdapterView.OnItemClickListener
 import com.bashar.contactapp.databinding.ActivityMainBinding
 
 
@@ -24,11 +23,9 @@ class MainActivity : AppCompatActivity() {
         viewBinding.saveButton.setOnClickListener{
             onSaveClick()
         }
-        adapter.onItemClickListener  = object : MainActivityAdapter.OnItemClickListener{
-            override fun onClickListener(item: Contact) {
-               val intent = Intent(this@MainActivity , InformationActivity::class.java)
-                intent.putExtra("content : " , item)
-                startActivity(intent)
+        adapter.onItemClickListener = object : MainActivityAdapter.OnItemClickListener{
+            override fun onClickListener(contact: Contact) {
+                navigateToContacts(contact)
             }
 
         }
@@ -44,5 +41,10 @@ class MainActivity : AppCompatActivity() {
                 )
             )
         }
+    }
+    private fun navigateToContacts(contact : Contact){
+        val intent = Intent(this, InformationActivity::class.java)
+        intent.putExtra(Constant.CONTACT , contact)
+        startActivity(intent)
     }
 }

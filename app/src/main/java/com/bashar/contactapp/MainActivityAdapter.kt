@@ -3,8 +3,6 @@ package com.bashar.contactapp
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
@@ -32,16 +30,19 @@ class MainActivityAdapter(private val contacts: MutableList<Contact>) :
         holder.name.text = contact.name
         holder.phone.text = contact.phone
         holder.description.text = contact.description
+        holder.itemView.setOnClickListener{
+            onItemClickListener?.onClickListener(contact)
+        }
     }
 
     var onItemClickListener: OnItemClickListener? = null
 
     interface OnItemClickListener {
-        fun onClickListener(item: Contact)
+        fun onClickListener(contact: Contact)
     }
 
     fun updateContactsList(contact: Contact) {
         contacts.add(contact)
-        notifyItemChanged(contacts.size - 1)
+        notifyItemInserted(contacts.size -1)
     }
 }
