@@ -18,9 +18,7 @@
         android:padding="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/phoneEd"
@@ -58,16 +56,16 @@
         android:padding="10dp"
         android:text="Save"
         android:textSize="20sp"
-        app:layout_constraintTop_toBottomOf="@+id/descriptionEd"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/descriptionEd" />
+
     <androidx.recyclerview.widget.RecyclerView
-        app:layout_constraintTop_toBottomOf="@+id/saveButton"
-        android:layout_marginTop="10dp"
         android:id="@+id/rv_contacts"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
         android:orientation="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/information_card"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/saveButton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:listitem="@layout/information_card" />
 </androidx.constraintlayout.widget.ConstraintLayout>

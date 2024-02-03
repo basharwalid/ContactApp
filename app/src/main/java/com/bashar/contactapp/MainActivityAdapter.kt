@@ -8,40 +8,40 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class MainActivityAdapter(private val contacts: List<Contact>) :
+class MainActivityAdapter(private val contacts: MutableList<Contact>) :
     RecyclerView.Adapter<MainActivityAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val name : EditText = itemView.findViewById(R.id.nameEd)
-        private val phone : EditText = itemView.findViewById(R.id.phoneEd)
-        val description : EditText = itemView.findViewById(R.id.descriptionEd)
-        var name1 = name.toString()
-        var phone1 = phone.toString()
-        var desc = description.toString()
+        val name: TextView = itemView.findViewById(R.id.name_tv)
+        val phone: TextView = itemView.findViewById(R.id.phone_tv)
+        val description: TextView = itemView.findViewById(R.id.description_tv)
     }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.activity_main, parent, false)
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.information_card, parent, false)
         return ViewHolder(view)
     }
 
     override fun getItemCount(): Int {
         return contacts.size
     }
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val contact = contacts[position]
-        holder.name1 = contact.name
-        holder.phone1 = contact.phone
-        holder.desc = contact.description
-
-        holder.itemView.setOnClickListener{
-            onSaveButtonClickListener?.onClickListener(
-                position,
-                contact
-            )
-        }
+        holder.name.text = contact.name
+        holder.phone.text = contact.phone
+        holder.description.text = contact.description
     }
-    var onSaveButtonClickListener: OnSaveButtonClickListener?=null
-    interface OnSaveButtonClickListener{
-        fun onClickListener(position :Int , item:Contact)
+
+    var onItemClickListener: OnItemClickListener? = null
+
+    interface OnItemClickListener {
+        fun onClickListener(item: Contact)
+    }
+
+    fun updateContactsList(contact: Contact) {
+        contacts.add(contact)
+        notifyItemChanged(contacts.size - 1)
     }
 }
